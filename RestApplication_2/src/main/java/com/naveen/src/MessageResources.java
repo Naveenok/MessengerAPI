@@ -15,7 +15,7 @@ public class MessageResources {
 	MessageService messageser=new MessageService();
 	
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
  public List<Message> getMessages(){
 	 return messageser.getAllMessages();
 	 //returning a List of messages 
