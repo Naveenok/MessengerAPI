@@ -7,6 +7,19 @@ private long id;
 private String message;
 private Date created;
 private String author;
+
+
+
+public Message() {
+	
+}
+public Message(long id, String message,String author) {
+	super();
+	this.id = id;
+	this.message = message;
+	this.created =new Date();
+	this.author = author;
+}
 public long getId() {
 	return id;
 }
