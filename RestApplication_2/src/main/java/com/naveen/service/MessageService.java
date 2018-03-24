@@ -10,6 +10,12 @@ import com.naveen.model.Message;
 
 public class MessageService {
 	private Map<Long,Message> messages=DatabaseClass.getMessages();
+	public  MessageService(){
+		messages.put(1L, new Message(1, "HelloWorld", "Naveen"));
+		messages.put(2L, new Message(2, "HelloWorld1", "Bharath"));
+		messages.put(3L, new Message(3, "HelloWorld2", "Agasthi"));
+		messages.put(4L, new Message(4, "HelloWorld3", "Aathi"));
+	}
 
 	public List<Message> getAllMessages() {
 		/*Message m1=new Message(1L, "Hello world","Naveen");
