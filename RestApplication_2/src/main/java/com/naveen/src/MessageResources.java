@@ -57,6 +57,10 @@ public class MessageResources {
 	public void deleteMessage(@PathParam("mesid") Long id){
 		 messageser.removeMessage(id);
 	}
+	@Path("/{messageId}/comments")
+	public CommentResources getCommentResource(){
+		return new CommentResources();
+	}
 	
 }
    
