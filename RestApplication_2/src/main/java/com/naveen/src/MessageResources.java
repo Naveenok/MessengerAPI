@@ -1,5 +1,6 @@
 package com.naveen.src;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -10,7 +11,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 
 import com.naveen.model.Message;
 import com.naveen.service.MessageService;
@@ -39,8 +45,21 @@ public class MessageResources {
 	/*@Path("/addmessage")*/    
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Message addMessage(Message message){
-		return messageser.addMessage(message);
+	//response returned along with the message
+	/*public Response addMessage(Message message){
+		Message newmessage= messageser.addMessage(message);
+		return Response.status(Status.CREATED)
+				.entity(newmessage)
+				.build();//build the response instance
+		OR the below one which returns with (Location)Uri as well*/
+		
+		public Response addMessage(Message message,@Context UriInfo uriInfo ){
+			Message newmessage= messageser.addMessage(message);
+			String newId=String.valueOf(newmessage.getId());
+			URI uri=uriInfo.getAbsolutePathBuilder().path(newId).build();
+			return Response.created(uri) 
+					.entity(newmessage)
+					.build();//build the response instance
 	}
 	@PUT
 	@Path("/test/{messageid}")
