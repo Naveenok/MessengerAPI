@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.naveen.database.DatabaseClass;
+import com.naveen.exception.DataNotFoundException;
 import com.naveen.model.Message;
 
 public class MessageService {
@@ -30,7 +31,12 @@ public class MessageService {
 		return new ArrayList<Message>( messages.values());
 	}
 	public Message getMessage(Long id){
-		return messages.get(id);
+		Message message= messages.get(id);
+		if (message==null) {
+			throw new DataNotFoundException("message with id :"+id+"not found");
+		} else {
+			return message;
+		}
 	}
 	public Message addMessage(Message message){
 		message.setId(messages.size()+1);
