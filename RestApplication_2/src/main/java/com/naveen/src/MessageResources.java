@@ -30,11 +30,24 @@ public class MessageResources {
 	MessageService messageser=new MessageService();
 	
 	@GET
+	//@Produces(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 	@Produces(MediaType.APPLICATION_JSON)
- public List<Message> getMessages(){
+ public List<Message> getJsonMessages(){
+	 return messageser.getAllMessages();
+	 //returning a List of messages 
+	 
+ }
+	@GET
+	//@Produces(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
+	@Produces(MediaType.APPLICATION_XML)
+ public List<Message> getXmlMessages(){
 	 return messageser.getAllMessages();
 	 //returning a List of messages 
  }
+	
+	
+	
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/test/{id}")
