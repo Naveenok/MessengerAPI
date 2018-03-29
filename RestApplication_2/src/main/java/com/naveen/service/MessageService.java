@@ -5,8 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import com.naveen.database.DatabaseClass;
 import com.naveen.exception.DataNotFoundException;
+import com.naveen.model.ErrorMessage;
 import com.naveen.model.Message;
 
 public class MessageService {
@@ -33,7 +38,10 @@ public class MessageService {
 	public Message getMessage(Long id){
 		Message message= messages.get(id);
 		if (message==null) {
-			throw new DataNotFoundException("message with id :"+id+"not found");
+			//throw new DataNotFoundException("message with id :"+id+"not found");
+			ErrorMessage errormessage=new ErrorMessage("NOT Found", 404, "http://com.naveen");
+			Response response=Response.status(Status.NOT_FOUND).entity(errormessage).build();
+			throw new WebApplicationException(response);
 		} else {
 			return message;
 		}
